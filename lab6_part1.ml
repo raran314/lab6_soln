@@ -137,7 +137,7 @@ able to validate them appropriately. In this lab, we'll use the
 `valid_` validation convention from lab 5. *)
 
 (*......................................................................
-Exercise 2: Define a function `valid_zip` that takes in a `string` and
+Exercise 2: Define a function `valid_zip` that takes a `string` and
 returns a `bool` indicating whether or not the string represents a
 valid zip code. You may find the function `Stdlib.int_of_string_opt`
 and the `String` or `Str` modules to be useful.
@@ -199,7 +199,7 @@ let valid_residence (res : residence) : bool =
    globally define an auxiliary function. Generally, you should define
    a function in the *smallest scope possible that simultaneously
    limits redundancy*. In other words, auxiliary functions should be
-   defined within the function they are used in unless they are of
+   defined within the function they are used unless they are of
    more general applicability. In the above approach, the
    `valid_address` function is localized to the `valid_residence`
    function. But an address-validation function is arguably of
@@ -243,7 +243,7 @@ let neighbors (place1 : residence) (place2 : residence) : bool =
 
 (*......................................................................
 Exercise 5: When buyers purchase a new residence in Camlville, they
-must register the ersidence with the town hall, which creates a record
+must register the residence with the town hall, which creates a record
 of the residence location and owner.
 
 Implement a function `record_residence` to perform this
@@ -290,7 +290,7 @@ Hint: You may find the `List.find` function to be useful.
 
 (* This implementation makes good use of the `List.find` function,
    trapping its exception and reraising the desired one if the name is
-   not found. Notice how find_residence_with_name doesn't need an
+   not found. Notice how `find_residence_with_name` doesn't need an
    argument for the town records, as it is defined within the scope of
    the `records` argument. *)
 

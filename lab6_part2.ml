@@ -16,7 +16,7 @@
  *)
 
 (*======================================================================
-	    Part 2: Binary search trees and Gorn addresses
+            Part 2: Binary search trees and Gorn addresses
 
 Recall from Chapter 11 of the textbook that binary trees are a data
 structure composed of nodes that store a value from some base type as
@@ -66,9 +66,9 @@ tree:
 
 let bst_example =
   Node (10, Node (5, Empty,
-		     Node (7, Empty,
-			      Node (9, Empty, Empty))),
-	Node (15, Empty, Empty))
+                     Node (7, Empty,
+                              Node (9, Empty, Empty))),
+            Node (15, Empty, Empty))
 
 (* The `string bintree` named `str_bintree` in the textbook,
 duplicated here, also happens to be a binary search tree. Do you see
@@ -103,6 +103,12 @@ node in `tree`, and `false` otherwise. For instance,
     - : bool = false
 ......................................................................*)
   
+
+(* The following implementation doesn't take advantage of the binary
+search tree property. For instance, it searches the left subtree of a
+node, even if the value to find is greater than the value at the
+node.
+
 let rec find_bst (tree : 'a bintree) (value : 'a) : bool =
   match tree with
   | Empty -> false
@@ -110,6 +116,16 @@ let rec find_bst (tree : 'a bintree) (value : 'a) : bool =
      stored = value
      || find_bst left value
      || find_bst right value ;;
+
+Instead, we should check which subtree to search: *)
+
+let rec find_bst (tree : 'a bintree) (value : 'a) : bool =
+  match tree with
+  | Empty -> false
+  | Node (stored, left, right) ->
+     if stored > value then find_bst left value
+     else if stored < value then find_bst right value 
+     else (* stored = value *) true ;;
 
 (*......................................................................
 Exercise 9: Define a function `min_bst`, such that `min_bst tree`
@@ -137,7 +153,7 @@ let rec min_bst (tree : 'a bintree): 'a option =
 
 (* Constructing binary search trees must be done carefully so that the
 invariant is always preserved. Next, you'll implement a function for
-adding a value to a binary search tree,while maintaining the
+adding a value to a binary search tree, while maintaining the
 invariant. *)
    
 (*......................................................................
@@ -151,14 +167,27 @@ returned maintains the binary search tree invariant.
 For instance, your function should have the following behavior.
 
     # let tr = Empty
-	       |> insert_bst 10
-	       |> insert_bst 5
-	       |> insert_bst 15
-	       |> insert_bst 7
-	       |> insert_bst 9 ;;            
+               |> insert_bst 10
+               |> insert_bst 5
+               |> insert_bst 15
+               |> insert_bst 7
+               |> insert_bst 9 ;;            
     val tr : int bintree =
       Node (10, Node (5, Empty, Node (7, Empty, Node (9, Empty, Empty))),
        Node (15, Empty, Empty))
+
+The returned tree can be depicted as
+
+      10
+      ^
+     / \
+    5   15
+    ^   ^
+     \
+      7
+      ^
+       \
+        9
 ......................................................................*)
 
 let rec insert_bst (value : 'a) (tree : 'a bintree) : 'a bintree =
