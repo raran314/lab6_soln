@@ -146,9 +146,8 @@ let rec find_bst (tree : 'a bintree) (value : 'a) : bool =
 (*......................................................................
 Exercise 9: Define a function `min_bst`, such that `min_bst tree`
 returns the minimum value stored in binary search tree `tree` as an
-option type, and `None` if the tree has no stored values. For purposes
-of determining the minimum, you can use the `Stdlib.min` operator for
-comparing values stored in the nodes of the tree. For instance,
+option type, and `None` if the tree has no stored values. For
+instance,
 
     # min_bst bst_example ;;
     - : int option = Some 5
@@ -162,7 +161,7 @@ let rec min_bst (tree : 'a bintree): 'a option =
   | Node (value, left, _right) ->
      match left with
      | Empty -> Some value
-     | Node (_,_,_) -> min_bst left ;;
+     | Node (_, _, _) -> min_bst left ;;
 
 (* Notice that since the tree is stipulated to be a binary search
    tree, we never need to look at the right subtree.*)
