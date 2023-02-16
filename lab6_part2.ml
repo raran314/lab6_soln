@@ -68,19 +68,35 @@ let bst_example =
   Node (10, Node (5, Empty,
                      Node (7, Empty,
                               Node (9, Empty, Empty))),
-            Node (15, Empty, Empty))
+        Node (15, Empty, Empty))
+
+(* This tree can be depicted graphically (given the limitations of
+ascii art) as
+
+      10
+      ^
+     / \
+    5   15
+    ^   ^
+     \
+      7
+      ^
+       \
+        9
+        ^
+ *)
 
 (* The `string bintree` named `str_bintree` in the textbook,
 duplicated here, also happens to be a binary search tree. Do you see
 why it obeys the invariant?  *)
 
 let str_bintree =
-        Node ("red",
-              Node ("orange", Node ("blue", Empty,
-                                            Node ("indigo", Empty, Empty)),
-                              Empty),
-              Node ("yellow", Empty,
-                              Node ("violet", Empty, Empty))) ;;
+  Node ("red",
+        Node ("orange", Node ("blue", Empty,
+                              Node ("indigo", Empty, Empty)),
+              Empty),
+        Node ("yellow", Node ("violet", Empty, Empty),
+              Empty)) ;;
 
 (* Binary search trees are useful because, as indicated by the name,
 searching for a value in a binary search tree is especially
@@ -176,18 +192,8 @@ For instance, your function should have the following behavior.
       Node (10, Node (5, Empty, Node (7, Empty, Node (9, Empty, Empty))),
        Node (15, Empty, Empty))
 
-The returned tree can be depicted as
+(The returned tree is the same one as depicted above.)
 
-      10
-      ^
-     / \
-    5   15
-    ^   ^
-     \
-      7
-      ^
-       \
-        9
 ......................................................................*)
 
 let rec insert_bst (value : 'a) (tree : 'a bintree) : 'a bintree =
